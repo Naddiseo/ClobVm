@@ -10,7 +10,6 @@
  */
 
 #include "IntegerType.h"
-#include <iostream>
 
 IntegerType::IntegerType() {
 	type  = INTEGER;
@@ -26,16 +25,16 @@ IntegerType::~IntegerType() {
 	// TODO Auto-generated destructor stub
 }
 
-IntegerType*
+pObject
 IntegerType::operator+(IntegerType& rhs) {
-	IntegerType* ret = new IntegerType();
+	pObject ret(new IntegerType());
 
-	ret->setValue(this->getValue() + rhs.getValue());
+	INTEGER_CAST(ret)->setValue(this->getValue() + rhs.getValue());
 
 	return ret;
 }
 
 void
 IntegerType::print() {
-	std::cout << "Integer (" << value << ")\n";
+	LOG("Integer(%d)\n", value);
 }

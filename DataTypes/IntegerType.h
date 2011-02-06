@@ -11,7 +11,7 @@
 #pragma once
 #include <DataTypes/TypedObject.h>
 
-#define INTEGER_CAST(x) dynamic_cast<IntegerType*>(x)
+#define INTEGER_CAST(x) std::dynamic_pointer_cast<IntegerType>(x)
 
 class IntegerType : public TypedObject<long> {
 public:
@@ -19,7 +19,7 @@ public:
 	IntegerType(long _l);
 	virtual ~IntegerType();
 
-	IntegerType* operator+(IntegerType& rhs);
+	pObject operator+(IntegerType& rhs);
 
 	void print();
 };

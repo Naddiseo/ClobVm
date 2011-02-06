@@ -23,34 +23,22 @@ static Instruction test[] = {
 		{PRINT, 3}
 };
 
-vObject objects;
-
-void add(int pos, BaseObject* o) {
-	if (pos >= objects.size()) {
-		objects.resize(static_cast<int>(pos * 1.5));
-	}else {
-		BaseObject* current = objects[pos];
-		if (current) {
-			delete current;
-		}
-	}
-	objects[pos] = o;
-}
 
 
 int
 main() {
+	mObject objects;
 	objects.reserve(10);
 
 	for (Instruction& c: test) {
 		c.print();
 		switch (c.op) {
 		case LOADI: {
-			add(c.arg1, new IntegerType(c.arg2));
+			objects[c.arg1] = pObject(new IntegerType(c.arg2));
 		}
 			break;
 		case ADD: {
-			add(c.arg1, *INTEGER_CAST(objects[c.arg2]) + *INTEGER_CAST(objects[c.arg3]));
+			objects[c.arg1] = *INTEGER_CAST(objects[c.arg2]) + *INTEGER_CAST(objects[c.arg3]);
 		}
 			break;
 		case PRINT: {
@@ -64,13 +52,6 @@ main() {
 	}
 
 	std::cout << "Objects.size = " << objects.size() << std::endl;
-
-	for (BaseObject*& o: objects) {
-		std::cout << "Freeing " << o->id <<std::endl;
-		if (o->id) {
-			delete o;
-		}
-	}
 
 	return 0;
 }

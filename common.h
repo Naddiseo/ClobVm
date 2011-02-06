@@ -14,10 +14,18 @@
 #endif
 
 #include <string>
-#include <vector>
-#include <stack>
+#include <unordered_map>
 #include <memory>
 
 class BaseObject;
 
-typedef std::vector<BaseObject*> vObject;
+typedef std::shared_ptr<BaseObject> pObject;
+typedef std::unordered_map<unsigned int, pObject> mObject;
+
+#ifdef DEBUG
+#	include <cstdio>
+#	define LOG(fmt, ...) fprintf(stderr, "[%s:%i]" fmt, __FILE__, __LINE__, __VA_ARGS__);
+#else
+#	define LOG(...)
+#endif
+
