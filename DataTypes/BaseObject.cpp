@@ -9,13 +9,9 @@
  *      Author: richard
  */
 
-#include "Object.h"
+#include "DataTypes/BaseObject.h"
 
-Object::Object() {
-	// TODO Auto-generated constructor stub
+unsigned int BaseObject::idCount = 0;
 
-}
-
-Object::~Object() {
-	// TODO Auto-generated destructor stub
-}
+BaseObject::BaseObject() { id = idCount++; }
+BaseObject::~BaseObject() {}

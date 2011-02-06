@@ -13,13 +13,18 @@
 class Instruction {
 public:
 	Opcode op;
-	unsigned char reg1;
-	unsigned char reg2;
-	long          addr;
+	unsigned int arg1;
+	unsigned int arg2;
+	unsigned int arg3;
 
-	Instruction(Opcode _o, unsigned char _r1, unsigned char _r2, long _a)
-		: op(_o), reg1(_r1), reg2(_r2), addr(_a) {}
 	Instruction();
+	Instruction(Opcode _o) : op(_o) {};
+	Instruction(Opcode _o, unsigned int _a1) : op(_o), arg1(_a1) {};
+	Instruction(Opcode _o, unsigned int _a1, unsigned int _a2) : op(_o), arg1(_a1), arg2(_a2) {};
+	Instruction(Opcode _o, unsigned int _a1, unsigned int _a2, unsigned int _a3) : op(_o), arg1(_a1), arg2(_a2), arg3(_a3) {};
 	virtual ~Instruction();
+
+	void print();
+
 };
 

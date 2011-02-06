@@ -10,12 +10,12 @@
  */
 
 #include "Instruction.h"
+#include <iostream>
+#include <typeinfo>
 
-Instruction::Instruction() {
-	// TODO Auto-generated constructor stub
+Instruction::Instruction() {}
+Instruction::~Instruction() {}
 
-}
-
-Instruction::~Instruction() {
-	// TODO Auto-generated destructor stub
+void Instruction::print() {
+	std::cout << op << " (" << arg1 << ", " << arg2 << ", " << arg3 << ")\n";
 }

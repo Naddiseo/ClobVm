@@ -12,7 +12,10 @@
 
 enum Opcode {
 	NOP = 1,
-	LOADI,
+	LOADI, // LOAD INT onto stack
+
+	PRINT,
+
 	ADD,
 	SUBTRACT,
 	MULTIPLY,
