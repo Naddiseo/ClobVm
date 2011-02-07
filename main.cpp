@@ -37,7 +37,7 @@ static Instruction test[] = {
 		{PRINT, 4},
 		{PRINT, 5},
 		{PRINT, 6},
-		*/
+		 */
 };
 
 
@@ -50,33 +50,33 @@ main() {
 	for (Instruction& c: test) {
 		//c.print();
 		switch (c.op) {
-		case LOADI: {
+		case LOADI:
 			objects[c.arg1] = pObject(new IntegerType(c.arg2));
-		}
+
 			break;
-		case LOADS: {
+		case LOADS:
 			objects[c.arg1] = pObject(new StringType(data[c.arg2]));
-		}
-		break;
-		case ADD: {
+
+			break;
+		case ADD:
 			objects[c.arg1] = intcast(objects[c.arg2]) + intcast(objects[c.arg3]);
-		}
+
 			break;
-		case SUBTRACT: {
+		case SUBTRACT:
 			objects[c.arg1] = intcast(objects[c.arg2]) - intcast(objects[c.arg3]);
-		}
+
 			break;
-		case MULTIPLY: {
+		case MULTIPLY:
 			objects[c.arg1] = intcast(objects[c.arg2]) * intcast(objects[c.arg3]);
-		}
+
 			break;
-		case DIVIDE: {
+		case DIVIDE:
 			objects[c.arg1] = intcast(objects[c.arg2]) / intcast(objects[c.arg3]);
-		}
+
 			break;
-		case PRINT: {
+		case PRINT:
 			objects[c.arg1]->print();
-		}
+
 			break;
 		default:
 		case NOP:
