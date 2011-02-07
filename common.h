@@ -19,12 +19,13 @@
 
 class BaseObject;
 
+
 typedef std::shared_ptr<BaseObject> pObject;
 typedef std::unordered_map<unsigned int, pObject> mObject;
 
 #ifdef DEBUG
 #	include <cstdio>
-#	define LOG(fmt, ...) fprintf(stderr, "[%s:%i]" fmt, __FILE__, __LINE__, __VA_ARGS__);
+#	define LOG(fmt, ...) fprintf(stderr, "[%s:%i]" fmt, __PRETTY_FUNCTION__, __LINE__, __VA_ARGS__);
 #else
 #	define LOG(...)
 #endif

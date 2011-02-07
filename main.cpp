@@ -18,9 +18,15 @@
 static Instruction test[] = {
 		{NOP,   1, 0},
 		{LOADI, 1, 1000},
-		{LOADI, 2, 1000},
+		{LOADI, 2, 2000},
 		{ADD, 3, 1, 2},
-		{PRINT, 3}
+		{SUBTRACT, 4, 2, 1},
+		{MULTIPLY, 5, 1, 2},
+		{DIVIDE, 6, 2, 1},
+		{PRINT, 3},
+		{PRINT, 4},
+		{PRINT, 5},
+		{PRINT, 6},
 };
 
 
@@ -38,7 +44,19 @@ main() {
 		}
 			break;
 		case ADD: {
-			objects[c.arg1] = *INTEGER_CAST(objects[c.arg2]) + *INTEGER_CAST(objects[c.arg3]);
+			objects[c.arg1] = objects[c.arg2]->intcast() + objects[c.arg3]->intcast();
+		}
+			break;
+		case SUBTRACT: {
+			objects[c.arg1] = objects[c.arg2]->intcast() - objects[c.arg3]->intcast();
+		}
+			break;
+		case MULTIPLY: {
+			objects[c.arg1] = objects[c.arg2]->intcast() * objects[c.arg3]->intcast();
+		}
+			break;
+		case DIVIDE: {
+			objects[c.arg1] = objects[c.arg2]->intcast() / objects[c.arg3]->intcast();
 		}
 			break;
 		case PRINT: {

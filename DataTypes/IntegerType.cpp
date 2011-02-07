@@ -21,18 +21,45 @@ IntegerType::IntegerType(long _l) {
 	value = _l;
 }
 
-IntegerType::~IntegerType() {
-	// TODO Auto-generated destructor stub
-}
+IntegerType::~IntegerType() {}
 
 pObject
-IntegerType::operator+(IntegerType& rhs) {
+IntegerType::operator+(const IntegerType& rhs) {
 	pObject ret(new IntegerType());
 
-	INTEGER_CAST(ret)->setValue(this->getValue() + rhs.getValue());
+	ret->intcast().setValue(this->getValue() + rhs.getValue());
 
 	return ret;
 }
+
+pObject
+IntegerType::operator-(const IntegerType& rhs) {
+	pObject ret(new IntegerType());
+
+	ret->intcast().setValue(this->getValue() - rhs.getValue());
+
+	return ret;
+}
+
+pObject
+IntegerType::operator*(const IntegerType& rhs) {
+	pObject ret(new IntegerType());
+
+	ret->intcast().setValue(this->getValue() * rhs.getValue());
+
+	return ret;
+}
+
+pObject
+IntegerType::operator/(const IntegerType& rhs) {
+	pObject ret(new IntegerType());
+
+	ret->intcast().setValue(this->getValue() / rhs.getValue());
+
+	return ret;
+}
+
+
 
 void
 IntegerType::print() {

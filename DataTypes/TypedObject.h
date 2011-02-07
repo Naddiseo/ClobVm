@@ -12,6 +12,7 @@
 
 #include "DataTypes/BaseObject.h"
 
+// can't put cast in here
 template<class T>
 class TypedObject: public BaseObject {
 public:
