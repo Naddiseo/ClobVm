@@ -14,7 +14,7 @@
 
 // can't put cast in here
 template<class T>
-class TypedObject: public BaseObject {
+class TypedObject : public BaseObject {
 public:
 	T value;
 
@@ -26,12 +26,7 @@ public:
 };
 
 template<class T>
-TypedObject<T>::TypedObject()  {
-	// TODO Auto-generated constructor stub
-
-}
+TypedObject<T>::TypedObject()  {}
 
 template<class T>
-TypedObject<T>::~TypedObject() {
-	// TODO Auto-generated destructor stub
-}
+TypedObject<T>::~TypedObject() {}

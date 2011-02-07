@@ -6,3 +6,6 @@ CXX=/usr/lib/gcc-snapshot/bin/g++
 all:
 	clear
 	$(CXX) $(CXXFLAGS) -o main.bin *.cpp DataTypes/*.cpp
+
+clean:
+	-rm main.bin

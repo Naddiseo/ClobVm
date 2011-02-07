@@ -12,12 +12,12 @@
 #include "IntegerType.h"
 
 IntegerType::IntegerType() {
-	type  = INTEGER;
+	type  = ObjectType_t::INTEGER;
 	value = 0;
 }
 
 IntegerType::IntegerType(long _l) {
-	type  = INTEGER;
+	type  = ObjectType_t::INTEGER;
 	value = _l;
 }
 

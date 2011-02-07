@@ -12,7 +12,7 @@
 #include <common.h>
 
 
-enum ObjectType {
+enum ObjectType_t {
 	INTEGER = 0,
 	LONG,
 	FLOAT,
@@ -27,7 +27,7 @@ public:
 	static unsigned int idCount;
 	unsigned int id;
 	std::string  name;
-	ObjectType   type;
+	ObjectType_t   type;
 
 	virtual void print() {};
 	

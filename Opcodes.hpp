@@ -12,7 +12,8 @@
 
 enum Opcode {
 	NOP = 1,
-	LOADI, // LOAD INT onto stack
+	LOADI, // Load a integer into an int object
+	LOADS, // Load a string from data into a string object
 
 	PRINT,
 

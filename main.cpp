@@ -14,9 +14,17 @@
 #include <Instruction.h>
 #include <DataTypes/BaseObject.h>
 #include <DataTypes/IntegerType.h>
+#include <DataTypes/StringType.h>
+
+static std::string data[] = {
+		"String 1",
+		"String 2"
+};
 
 static Instruction test[] = {
-		{NOP,   1, 0},
+		{LOADS, 1, 0},
+		{PRINT, 1},
+		/*{NOP,   1, 0},
 		{LOADI, 1, 1000},
 		{LOADI, 2, 2000},
 		{ADD, 3, 1, 2},
@@ -27,6 +35,7 @@ static Instruction test[] = {
 		{PRINT, 4},
 		{PRINT, 5},
 		{PRINT, 6},
+		*/
 };
 
 
@@ -43,6 +52,10 @@ main() {
 			objects[c.arg1] = pObject(new IntegerType(c.arg2));
 		}
 			break;
+		case LOADS: {
+			objects[c.arg1] = pObject(new StringType(data[c.arg2]));
+		}
+		break;
 		case ADD: {
 			objects[c.arg1] = objects[c.arg2]->intcast() + objects[c.arg3]->intcast();
 		}
