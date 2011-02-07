@@ -1,3 +1,6 @@
 main.bin
 .project
 .cproject
+*.bin
+clobvm
+test.clobcc

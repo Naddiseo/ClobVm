@@ -4,12 +4,17 @@ CXXFLAGS+=-std=c++0x -I. -g -DDEBUG
 CXX=/usr/lib/gcc-snapshot/bin/g++
 
 all:
-	clear
-	$(CXX) $(CXXFLAGS) -o main.bin *.cpp DataTypes/*.cpp
+	if [ ${TERM} ]; then clear; fi
+	$(CXX) $(CXXFLAGS) -o clobvm main.cpp Instruction.cpp ClobFile.cpp DataTypes/*.cpp
+	$(CXX) $(CXXFLAGS) -o testcomp.bin testcomp.cpp Instruction.cpp ClobFile.cpp DataTypes/*.cpp
 
-all32:
+cgi32:
 	clear
-	$(CXX) $(CXXFLAGS) -m32 -o main.bin *.cpp DataTypes/*.cpp
+	$(CXX) $(CXXFLAGS) -g0 -m32 -o clobvm main.cpp Instruction.cpp ClobFile.cpp  DataTypes/*.cpp
+	$(CXX) $(CXXFLAGS) -g0 -m32 -o testcomp.bin testcomp.cpp Instruction.cpp ClobFile.cpp DataTypes/*.cpp
 	
 clean:
 	-rm main.bin
+
+install:
+	-cp -v clobvm /usr/local/bin/

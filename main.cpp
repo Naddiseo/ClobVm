@@ -11,43 +11,29 @@
 #include <common.h>
 #include <iostream>
 
+#include <ClobFile.h>
 #include <Instruction.h>
 #include <DataTypes/BaseObject.h>
 #include <DataTypes/IntegerType.h>
 #include <DataTypes/StringType.h>
-
-static const char* data[] = {
-		"Content-Type: text/html\n\n",
-		"<html><body>Hello from within Clob VM</body><html>\n"
-};
-
-static Instruction test[] = {
-		{LOADS, 1, 0},
-		{LOADS, 2, 1},
-		{PRINT, 1},
-		{PRINT, 2},
-		/*{NOP,   1, 0},
-		{LOADI, 1, 1000},
-		{LOADI, 2, 2000},
-		{ADD, 3, 1, 2},
-		{SUBTRACT, 4, 2, 1},
-		{MULTIPLY, 5, 1, 2},
-		{DIVIDE, 6, 2, 1},
-		{PRINT, 3},
-		{PRINT, 4},
-		{PRINT, 5},
-		{PRINT, 6},
-		 */
-};
-
 
 
 int
 main() {
 	mObject objects;
 	objects.reserve(10);
+	Instruction test[] = {};
+	const char* data[] = {};
 
-	for (Instruction& c: test) {
+	const char* filename = getenv("SCRIPT_FILENAME");
+
+	//std::cout <<"Content-type: text/html\n\n";
+	//std::cout <<"You requested: " << filename << std::endl;
+	ClobFile f(filename);
+	f.load();
+
+
+	for (Instruction& c: f.instructions) {
 		//c.print();
 		switch (c.op) {
 		case LOADI:
@@ -55,7 +41,8 @@ main() {
 
 			break;
 		case LOADS:
-			objects[c.arg1] = pObject(new StringType(data[c.arg2]));
+			//XXX broken
+			objects[c.arg1] = pObject(new StringType(f.data[c.arg2].string));
 
 			break;
 		case ADD:
