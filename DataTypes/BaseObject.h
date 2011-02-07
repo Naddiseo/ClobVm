@@ -30,9 +30,6 @@ public:
 	ObjectType_t   type;
 
 	virtual void print() {};
-	
-	template<class C>
-	C& cast() { return *dynamic_cast<C*>(this); }
 
 	BaseObject();
 	virtual ~BaseObject();

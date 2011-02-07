@@ -12,9 +12,8 @@
 #include <DataTypes/TypedObject.h>
 #include <string>
 
-#define STRING_PCAST(x) std::dynamic_pointer_cast<StringType>(x)
-#define STRING_CAST(x) (*STRING_PCAST(x))
-#define strcast cast<StringType>
+#define strpcast(x) std::dynamic_pointer_cast<StringType>(x)
+#define strcast(x) (*strpcast(x))
 
 class StringType : public TypedObject<std::string> {
 public:

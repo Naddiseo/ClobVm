@@ -16,14 +16,16 @@
 #include <DataTypes/IntegerType.h>
 #include <DataTypes/StringType.h>
 
-static std::string data[] = {
-		"String 1",
-		"String 2"
+static const char* data[] = {
+		"Content-Type: text/html\n\n",
+		"<html><body>Hello from within Clob VM</body><html>\n"
 };
 
 static Instruction test[] = {
 		{LOADS, 1, 0},
+		{LOADS, 2, 1},
 		{PRINT, 1},
+		{PRINT, 2},
 		/*{NOP,   1, 0},
 		{LOADI, 1, 1000},
 		{LOADI, 2, 2000},
@@ -46,7 +48,7 @@ main() {
 	objects.reserve(10);
 
 	for (Instruction& c: test) {
-		c.print();
+		//c.print();
 		switch (c.op) {
 		case LOADI: {
 			objects[c.arg1] = pObject(new IntegerType(c.arg2));
@@ -57,19 +59,19 @@ main() {
 		}
 		break;
 		case ADD: {
-			objects[c.arg1] = objects[c.arg2]->intcast() + objects[c.arg3]->intcast();
+			objects[c.arg1] = intcast(objects[c.arg2]) + intcast(objects[c.arg3]);
 		}
 			break;
 		case SUBTRACT: {
-			objects[c.arg1] = objects[c.arg2]->intcast() - objects[c.arg3]->intcast();
+			objects[c.arg1] = intcast(objects[c.arg2]) - intcast(objects[c.arg3]);
 		}
 			break;
 		case MULTIPLY: {
-			objects[c.arg1] = objects[c.arg2]->intcast() * objects[c.arg3]->intcast();
+			objects[c.arg1] = intcast(objects[c.arg2]) * intcast(objects[c.arg3]);
 		}
 			break;
 		case DIVIDE: {
-			objects[c.arg1] = objects[c.arg2]->intcast() / objects[c.arg3]->intcast();
+			objects[c.arg1] = intcast(objects[c.arg2]) / intcast(objects[c.arg3]);
 		}
 			break;
 		case PRINT: {
@@ -82,7 +84,7 @@ main() {
 		}
 	}
 
-	std::cout << "Objects.size = " << objects.size() << std::endl;
+	//std::cout << "Objects.size = " << objects.size() << std::endl;
 
 	return 0;
 }

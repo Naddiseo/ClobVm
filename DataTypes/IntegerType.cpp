@@ -27,7 +27,7 @@ pObject
 IntegerType::operator+(const IntegerType& rhs) {
 	pObject ret(new IntegerType());
 
-	ret->intcast().setValue(this->getValue() + rhs.getValue());
+	intpcast(ret)->setValue(this->getValue() + rhs.getValue());
 
 	return ret;
 }
@@ -36,7 +36,7 @@ pObject
 IntegerType::operator-(const IntegerType& rhs) {
 	pObject ret(new IntegerType());
 
-	ret->intcast().setValue(this->getValue() - rhs.getValue());
+	intpcast(ret)->setValue(this->getValue() - rhs.getValue());
 
 	return ret;
 }
@@ -45,7 +45,7 @@ pObject
 IntegerType::operator*(const IntegerType& rhs) {
 	pObject ret(new IntegerType());
 
-	ret->intcast().setValue(this->getValue() * rhs.getValue());
+	intpcast(ret)->setValue(this->getValue() * rhs.getValue());
 
 	return ret;
 }
@@ -54,7 +54,7 @@ pObject
 IntegerType::operator/(const IntegerType& rhs) {
 	pObject ret(new IntegerType());
 
-	ret->intcast().setValue(this->getValue() / rhs.getValue());
+	intpcast(ret)->setValue(this->getValue() / rhs.getValue());
 
 	return ret;
 }

@@ -11,9 +11,8 @@
 #pragma once
 #include <DataTypes/TypedObject.h>
 
-#define INTEGER_PCAST(x) std::dynamic_pointer_cast<IntegerType>(x)
-#define INTEGER_CAST(x) (*INTEGER_PCAST(x))
-#define intcast cast<IntegerType>
+#define intpcast(x) std::dynamic_pointer_cast<IntegerType>(x)
+#define intcast(x) (*intpcast(x))
 
 class IntegerType : public TypedObject<long> {
 public:

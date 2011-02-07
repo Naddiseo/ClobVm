@@ -15,5 +15,5 @@ unsigned int BaseObject::idCount = 0;
 
 BaseObject::BaseObject() { id = ++idCount; }
 BaseObject::~BaseObject() {
-	LOG("Destroying Object %d of %d\n", id, idCount);
+	//LOG("Destroying Object %d of %d\n", id, idCount);
 }
