@@ -13,6 +13,12 @@
 #include <string>
 #include <Instruction.h>
 
+struct ClobFileHeader_t {
+	unsigned long version;
+	unsigned long instructionCount;
+	unsigned long dataCount;
+};
+
 struct DataEntry_t {
 	unsigned long length;
 	std::string   string;
@@ -23,12 +29,11 @@ typedef std::vector<Instruction> Instructions;
 typedef std::vector<std::string> strings_t;
 class ClobFile {
 public:
-	unsigned long dataSize;
-	unsigned long instructionSize;
-	DataEntries_t   data;
-	Instructions   instructions;
+	ClobFileHeader_t header;
+	DataEntries_t    data;
+	Instructions     instructions;
 
-	ClobFile(std::string _path) : path(_path) {}
+	ClobFile(std::string _path) : path(_path), header({0,0,0}) {}
 	ClobFile(std::string _path, Instructions _instructions, strings_t _data);
 	bool load();
 	bool save();

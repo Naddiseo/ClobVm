@@ -11,11 +11,11 @@
 
 #include "Instruction.h"
 #include <iostream>
-#include <typeinfo>
+#include <common.h>
 
 Instruction::Instruction() {}
 Instruction::~Instruction() {}
 
 void Instruction::print() {
-	std::cout << op << " (" << arg1 << ", " << arg2 << ", " << arg3 << ")\n";
+	LOG("%i (%i, %i, %i)\n", op, arg1, arg2, arg3);
 }

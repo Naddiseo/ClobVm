@@ -1,4 +1,4 @@
-CXXFLAGS+=-std=c++0x -I. -g -DDEBUG
+CXXFLAGS+=-std=c++0x -I. -g -DDEBUG -pipe
 
 # I want 4.6!! range-based for ftw
 CXX=/usr/lib/gcc-snapshot/bin/g++
@@ -18,3 +18,5 @@ clean:
 
 install:
 	-cp -v clobvm /usr/local/bin/
+	./testcomp.bin
+	-cp -v test.clobcc /var/www/

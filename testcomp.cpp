@@ -14,7 +14,7 @@
 
 static strings_t data = {
 		"Content-Type: text/html\n\n",
-		"<html><body>Hello from within Clob VM</body><html>\n"
+		"<html><body>Hello from within Clob VM File</body><html>\n"
 };
 
 static Instructions test = {
@@ -40,5 +40,9 @@ static Instructions test = {
 int main() {
 	ClobFile f("test.clobcc", test, data);
 	f.save();
+
+	ClobFile f2("test.clobcc");
+	f2.load();
+
 	return 0;
 }

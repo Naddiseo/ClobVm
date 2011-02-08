@@ -12,16 +12,21 @@
 #include "ClobFile.h"
 #include <fstream>
 #include <string>
+#include <iostream>
+
+#include <common.h>
 
 ClobFile::ClobFile(std::string _path, Instructions _instructions, strings_t _data) {
 	path = _path;
 	instructions = _instructions;
 
+	header = {0, _instructions.size(), _data.size()};
 
 	for (auto _d : _data) {
 		DataEntry_t entry;
 		entry.string = _d;
 		entry.length = entry.string.size();
+		data.push_back(entry);
 	}
 }
 
@@ -31,34 +36,31 @@ bool
 ClobFile::load() {
 	if (path.size() == 0) return false;
 
-	std::ifstream file(path);
-	file.read((char*)&dataSize, sizeof(dataSize));
-	file.read((char*)&instructionSize, sizeof(instructionSize));
+	std::fstream file(path, std::ios::in | std::ios::binary);
+	file.read(reinterpret_cast<char*>(&header), sizeof(ClobFileHeader_t));
+	LOG("Read header, got %i data, %i instructions", header.dataCount, header.instructionCount);
 
-	// Make sure it's not some ridiculous size
-	if (dataSize > 100) {
-		dataSize = 100; // for now..
-	}
-
-	for (int i = 0; i < dataSize; i++) {
+	for (int i = 0; i < header.dataCount; i++) {
 		DataEntry_t entry;
-		file.read((char*)&entry.length, sizeof(entry.length));
+		file.read(reinterpret_cast<char*>(&entry.length), sizeof(unsigned long));
+
 		char* buffer = new char[entry.length];
+		if (!buffer) {
+			return false;
+		}
 		file.read(buffer, entry.length);
 		entry.string = buffer;
 		delete[] buffer;
-
+		LOG("Reading string[%i==%i](\"%s\")\n", entry.string.size(), entry.length, entry.string.c_str());
 		data.push_back(entry);
 	}
 
-	// Make sure it's not some ridiculous size
-	if (instructionSize > 100) {
-		instructionSize = 100; // for now..
-	}
 
-	for (int i = 0; i < instructionSize; i++) {
+	LOG("Reading %i instructions\n", header.instructionCount);
+	for (int i = 0; i < header.instructionCount; i++) {
 		Instruction instr;
-		file.read((char*)&instr, sizeof(Instruction));
+		file.read(reinterpret_cast<char*>(&instr), sizeof(Instruction));
+		instr.print();
 		instructions.push_back(instr);
 	}
 
@@ -67,21 +69,22 @@ ClobFile::load() {
 
 bool ClobFile::save() {
 	if (path.size() == 0) return false;
-	std::ofstream file(path);
-	dataSize        = data.size();
-	instructionSize = instructions.size();
+	std::fstream file(path, std::ios::out | std::ios::binary);
 
-	file.write((char*)&dataSize, sizeof(dataSize));
-	file.write((char*)&instructionSize, sizeof(instructionSize));
+	file.write(reinterpret_cast<char*>(&header), sizeof(ClobFileHeader_t));
+	LOG("Saved header, got %i data, %i instructions", header.dataCount, header.instructionCount);
 
 	for (DataEntry_t& entry : data) {
 		entry.length = entry.string.size();
-		file.write((char*)&entry.length, sizeof(entry.length));
+		file.write(reinterpret_cast<char*>(&entry.length), sizeof(unsigned long));
 		file.write(entry.string.c_str(), entry.string.size());
+		LOG("Saving string[%i==%i](\"%s\")\n", entry.string.size(), entry.length, entry.string.c_str());
 	}
 
+	LOG("Writing %i instructions\n", header.instructionCount);
 	for (Instruction& instr : instructions) {
-		file.write((char*)&instr, sizeof(Instruction));
+		instr.print();
+		file.write(reinterpret_cast<char*>(&instr), sizeof(Instruction));
 	}
 
 	file.close();

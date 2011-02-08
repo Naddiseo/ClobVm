@@ -28,13 +28,13 @@ main() {
 	const char* filename = getenv("SCRIPT_FILENAME");
 
 	//std::cout <<"Content-type: text/html\n\n";
-	//std::cout <<"You requested: " << filename << std::endl;
+	std::cerr <<"You requested: " << filename << std::endl;
 	ClobFile f(filename);
 	f.load();
 
 
 	for (Instruction& c: f.instructions) {
-		//c.print();
+		c.print();
 		switch (c.op) {
 		case LOADI:
 			objects[c.arg1] = pObject(new IntegerType(c.arg2));
@@ -71,7 +71,7 @@ main() {
 		}
 	}
 
-	//std::cout << "Objects.size = " << objects.size() << std::endl;
+	std::cerr << "Objects.size = " << objects.size() << std::endl;
 
 	return 0;
 }

@@ -26,5 +26,5 @@ StringType::~StringType() {}
 void
 StringType::print() {
 	//LOG("STRING(\"%s\")\n", value.c_str());
-	std::cout<<value;
+	std::cout << value;
 }
