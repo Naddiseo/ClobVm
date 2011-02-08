@@ -44,11 +44,14 @@ ClobFile::load() {
 		DataEntry_t entry;
 		file.read(reinterpret_cast<char*>(&entry.length), sizeof(unsigned long));
 
-		char* buffer = new char[entry.length];
+		// Allocate one extra for the null terminator
+		char* buffer = new char[entry.length + 1];
 		if (!buffer) {
 			return false;
 		}
 		file.read(buffer, entry.length);
+		// Make sure buffer is null terminated for conversion to std::string to work properly
+		buffer[entry.length + 1] = 0;
 		entry.string = buffer;
 		delete[] buffer;
 		LOG("Reading string[%i==%i](\"%s\")\n", entry.string.size(), entry.length, entry.string.c_str());

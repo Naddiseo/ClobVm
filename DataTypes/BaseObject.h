@@ -13,12 +13,14 @@
 
 
 enum ObjectType_t {
-	INTEGER = 0,
+	INTEGER = 1,
 	LONG,
+	BOOLEAN,
 	FLOAT,
 	STRING,
 	OBJECT,
 	FUNCTION,
+	LIST,
 };
 
 

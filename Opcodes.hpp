@@ -17,6 +17,9 @@ enum Opcode {
 
 	PRINT,
 
+	JUMP,
+	JEQ,
+
 	ADD,
 	SUBTRACT,
 	MULTIPLY,

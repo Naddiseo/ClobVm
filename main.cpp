@@ -28,7 +28,7 @@ main() {
 	const char* filename = getenv("SCRIPT_FILENAME");
 
 	//std::cout <<"Content-type: text/html\n\n";
-	std::cerr <<"You requested: " << filename << std::endl;
+	//std::cerr <<"You requested: " << filename << std::endl;
 	ClobFile f(filename);
 	f.load();
 
@@ -38,32 +38,33 @@ main() {
 		switch (c.op) {
 		case LOADI:
 			objects[c.arg1] = pObject(new IntegerType(c.arg2));
-
 			break;
+
 		case LOADS:
-			//XXX broken
 			objects[c.arg1] = pObject(new StringType(f.data[c.arg2].string));
-
 			break;
+
+		case JUMP:
+			break;
+
 		case ADD:
 			objects[c.arg1] = intcast(objects[c.arg2]) + intcast(objects[c.arg3]);
-
 			break;
+
 		case SUBTRACT:
 			objects[c.arg1] = intcast(objects[c.arg2]) - intcast(objects[c.arg3]);
-
 			break;
+
 		case MULTIPLY:
 			objects[c.arg1] = intcast(objects[c.arg2]) * intcast(objects[c.arg3]);
-
 			break;
+
 		case DIVIDE:
 			objects[c.arg1] = intcast(objects[c.arg2]) / intcast(objects[c.arg3]);
-
 			break;
+
 		case PRINT:
 			objects[c.arg1]->print();
-
 			break;
 		default:
 		case NOP:
@@ -71,7 +72,7 @@ main() {
 		}
 	}
 
-	std::cerr << "Objects.size = " << objects.size() << std::endl;
+	//std::cerr << "Objects.size = " << objects.size() << std::endl;
 
 	return 0;
 }
